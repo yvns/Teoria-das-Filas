@@ -29,7 +29,7 @@ while 1:
    a_alpha = float(input("\tAlpha:"))
    a_beta  = float(input("\tBeta:"))
 
-    # In[2]:
+   # In[2]:
    EntreChegadas = [G(c_alpha, c_beta) for i in range(1000)]
    # In[3]:
    Atendimentos  = [G(a_alpha, a_beta) for i in range(1000)]
@@ -60,7 +60,7 @@ while 1:
        Ocorrencias.append([Chegadas[i],  1])
        Ocorrencias.append([FAtendimento[i], -1])
    Ocorrencias = sorted(Ocorrencias)
-    
+
    TamanhoFila = [[0], [0]]
    j=1
    for i in range(1, len(Ocorrencias)):
@@ -82,10 +82,10 @@ while 1:
    grafico1.plot(EntreChegadas)
    grafico1.plot(Atendimentos)
    
-   grafico1.legend( ["Chegadas","Atendimentos"], shadow=True)    
+   grafico1.legend( ["Chegadas a="+str(c_alpha)+" b="+str(c_beta),"Atendimentos a="+str(a_alpha)+" b="+str(a_beta)], shadow=True)    
    grafico1.grid(True)
 
-    # ## Fila
+   # ## Fila
     
    inic=0
    fim =4001 # Quantidade de ocorrencias = fim-inic
