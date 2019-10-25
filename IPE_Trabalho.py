@@ -1,46 +1,24 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# Espaço para as:
-# - Configurações de pagina
-# - Imports
-# - Funções
-# - Classes
-
-# In[1]:
-## Coisa do Jupyter não apagar!:
-'''from IPython.core.display import display, HTML
-display(HTML("<style>.container { width:95% !important;}</style>"))
-%config InlineBackend.figure_format='retina' '''
-
 import matplotlib.pyplot as plt
 import pandas as pd
 from random import gammavariate as G
-
-
 # ### Dados Basicos
 while 1:
-   print("--- Digite os coeficientes da fila")
-   
+
+   print("------ Digite os coeficientes da fila------")
    print("Coeficientes da Chegada")
-   c_alpha = float(input("\tAlpha:"))
-   c_beta  = float(input("\tBeta:"))
-   
+   c_alpha = float(input("\tAlpha: "))
+   c_beta  = float(input("\tBeta: "))
    print("Coeficientes do Atendimento")
-   a_alpha = float(input("\tAlpha:"))
-   a_beta  = float(input("\tBeta:"))
-
-
-   # In[23]:
-   tamanho = 1000 #tamanho da tabela numero de linhas
-
+   a_alpha = float(input("\tAlpha: "))
+   a_beta  = float(input("\tBeta: "))
    
-   # In[2]:
+   tamanho = abs(int(input("Numero de Xi: "))) #tamanho da tabela numero de linhas
+   
+   
    EntreChegadas = [G(c_alpha, c_beta) for i in range(tamanho)]
-   # In[3]:
    Atendimentos  = [G(a_alpha, a_beta) for i in range(tamanho)]
+   
    # #### Dados secundarios
-    
    # In[4]:    
    Chegadas = []
    soma=0
@@ -85,25 +63,19 @@ while 1:
    Espera = []
    for i in range(tamanho):
        Espera.append(IAtendimento[i]-Chegadas[i])
+       
+   TempoNoSistema = [Atendimentos[i]+Espera[i] for i in range(tamanho)]
     
     # # Graficos
    # In[7]:
-   ''' 
-   fig = plt.figure()
-   grafico1 = fig.add_subplot(311)
-   grafico2 = fig.add_subplot(312)
-   grafico3 = fig.add_subplot(313)'''
-   
-   
-
    while(1):
        print("-----------Dados--------")
-       switch = int(input("\t1 - Tamanho da fila\n\t2 - Dados Basicos\n\t3 - Ocio e Espera\n\t0 - Sair\n"))
+       switch = int(input("\t1 - Tamanho da fila\n\t2 - Dados Basicos\n\t3 - Ocio/Espera e Tempo no Sistema \n\t4 - Gerar xls\n\t0 - Sair dos Dados\n"))
        if(switch==1):
        # ## Fila
            plt.plot(TamanhoFila[0], TamanhoFila[1], "-bD")
            plt.title("Tamanho da Fila")
-           plt.ylabel("Quantidade de pessoas")
+           plt.ylabel("Quantidade")
            plt.xlabel("Tempo (min.)")
            plt.legend( ["Tamanho da Fila"], shadow=True)
            plt.grid(True)
@@ -111,21 +83,36 @@ while 1:
        if(switch==2):
            plt.title("Informações Basicas")
            plt.ylabel("Tempo (min.)")
-           plt.xlabel("Cliente")
+           plt.xlabel("Xi")
            plt.plot(EntreChegadas)
            plt.plot(Atendimentos)
            plt.legend( ["Chegadas a="+str(c_alpha)+" b="+str(c_beta),"Atendimentos a="+str(a_alpha)+" b="+str(a_beta)], shadow=True)    
            plt.grid(True)
            plt.show()
+           
        if(switch==3):
-           plt.title("Informações Complementares")
+           plt.title("Ocio/Espera e Tempo no Sistema")
            plt.ylabel("Tempo (min.)")
-           plt.xlabel("Ocio ou espera do cliente")
+           plt.xlabel("Xi")
            plt.plot(Ocio, "--b")
            plt.plot(Espera, "-r")
-           plt.legend( ["Ocio ","Espera"], shadow=True)   
+           plt.plot(TempoNoSistema, "-k")
+           plt.legend( ["Ocio ","Espera", "Tempo no Sistema"], shadow=True) 
            plt.grid(True)
            plt.show()
+           
+       if(switch==4):
+           DataFrame = pd.DataFrame(columns=["Entre Chegadas", "Atendimento", "Chegada", "Inicio Atendimento", "Fim Atendimento", "Espera", "Ocio"])
+           DataFrame["Entre Chegadas"]=EntreChegadas
+           DataFrame["Atendimento"]=Atendimentos
+           DataFrame["Chegada"]=Chegadas
+           DataFrame["Inicio Atendimento"]=IAtendimento
+           DataFrame["Fim Atendimento"]=FAtendimento
+           DataFrame["Espera"]=Espera
+           DataFrame["Ocio"]=Ocio
+           DataFrame["Tempo no Sistema"]=TempoNoSistema
+           DataFrame.to_excel("Fila_CH_a_"+str(c_alpha)+"_b_"+str(c_beta)+"_AT_a"+str(a_alpha)+"_b_"+str(a_beta)+".xlsx",sheet_name="Fila",index_label="Xi")
+           
        if(switch==0):
            break
    
