@@ -7,10 +7,10 @@ while 1:
    print("------ Digite os coeficientes da fila------")
    print("Coeficientes da Chegada")
    c_alpha = float(input("\tAlpha: "))
-   c_beta  = float(input("\tBeta: "))
+   c_beta  = float(input("\tBeta (\"Tempo/Cliente\"): "))
    print("Coeficientes do Atendimento")
    a_alpha = float(input("\tAlpha: "))
-   a_beta  = float(input("\tBeta: "))
+   a_beta  = float(input("\tBeta (\"Tempo/Cliente\"): "))
    
    tamanho = abs(int(input("Numero de Xi: "))) #tamanho da tabela numero de linhas
    
