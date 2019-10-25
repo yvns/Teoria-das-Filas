@@ -19,13 +19,13 @@ while 1:
    Atendimentos  = [G(a_alpha, a_beta) for i in range(tamanho)]
    
    # #### Dados secundarios
-   # In[4]:    
+   # In [4]:    
    Chegadas = []
    soma=0
    for xi in EntreChegadas: 
        soma +=xi
        Chegadas.append(soma) 
-    # In[5]:    
+    # In [5]:    
    IAtendimento = [] #Inicio do Atendimento
    FAtendimento = [] #Fim do Atendimento
     
@@ -37,7 +37,7 @@ while 1:
        FAtendimento.append(IAtendimento[i]+Atendimentos[i])
        
     # ## Tamanho da Fila
-    # In[6]:
+    # In [6]:
    Ocorrencias = [[0 , 0]]
     
    for i in range(tamanho):
@@ -55,7 +55,7 @@ while 1:
        TamanhoFila[1].append(TamanhoFila[1][j-1]+Ocorrencias[i][1])
        j=j+1
     
-   # In[20]
+   # In [20]
    Ocio = [Chegadas[0]]
    for i in range( 1, tamanho):
        Ocio.append(max(Chegadas[i]-FAtendimento[i-1], 0))
@@ -67,7 +67,7 @@ while 1:
    TempoNoSistema = [Atendimentos[i]+Espera[i] for i in range(tamanho)]
     
     # # Graficos
-   # In[7]:
+   # In [7]:
    while(1):
        print("-----------Dados--------")
        switch = int(input("\t1 - Tamanho da fila\n\t2 - Dados Basicos\n\t3 - Ocio/Espera e Tempo no Sistema \n\t4 - Gerar xls\n\t0 - Sair dos Dados\n"))
@@ -117,7 +117,7 @@ while 1:
            break
    
 
-   # In[16]:
+   # In [16]:
    op = bool(int(input("Deseja repetir? \n\t1 - Sim\n\t0 - Não\n")))
    if(op==False):
        exit()
